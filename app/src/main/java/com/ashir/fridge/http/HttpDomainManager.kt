@@ -1,9 +1,9 @@
 package com.ashir.fridge.http
 import androidx.annotation.StringDef
-import com.threemusketeers.dliverCustomer.main.utils.extensions.forEachSafe
 import com.ashir.fridge.utils.managers.AppDeviceManager
-import com.threemusketeers.dliverCustomer.main.utils.sharedprefs.SharedPrefConstants
 import com.ashir.fridge.utils.sharedprefs.SharedPrefUtil
+import com.threemusketeers.dliverCustomer.main.utils.extensions.forEachSafe
+import com.threemusketeers.dliverCustomer.main.utils.sharedprefs.SharedPrefConstants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -20,8 +20,8 @@ object HttpDomainManager {
     const val DOMAIN_OVERRIDE_LOCALHOST = "DOMAIN_OVERRIDE_LOCALHOST"
 
     private var PRODUCTION_DOMAIN = "api.dliver.com"
-    private var STAGING_DOMAIN = "dliver-backend-92f5b3c82fa6.herokuapp.com"
-    private var LOCALHOST_DOMAIN = "localhost:3443"
+    private var STAGING_DOMAIN = "ec2-54-227-2-190.compute-1.amazonaws.com:8000"
+    private var LOCALHOST_DOMAIN = "localhost:8000"
     private var EMULATOR_DOMAIN = "10.0.2.2:3443"
     private var DOCKER_API = SharedPrefUtil.getDefaultInstance().getString(SharedPrefConstants.DOCKER_IP_ADDRESS, defaultValue = "")
     private var prodDomainMap  : Map<String,String>  = SharedPrefUtil.getDefaultInstance().getDataObject(SharedPrefConstants.PRODUCTION_DOMAIN_MAP,Map::class.java) as? Map<String, String> ?:  mapOf()

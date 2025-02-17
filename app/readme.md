@@ -1,0 +1,1 @@
+Figma : https://www.figma.com/design/QalVOnfpaVS7U988ryOA7u/Fridge-Figma-Design?node-id=188-1151&t=GtrO1cpYa5Q9rbi5-0
