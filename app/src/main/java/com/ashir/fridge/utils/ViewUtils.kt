@@ -1,6 +1,7 @@
 package com.threemusketeers.dliverCustomer.main.utils
 
 import android.animation.ValueAnimator
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.LinearGradient
@@ -24,6 +25,7 @@ import android.view.View
 import android.view.animation.Animation
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
@@ -518,5 +520,10 @@ object ViewUtils {
         resultString.setSpan(StrikethroughSpan(), 0, resultString.length, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
         resultString.setSpan(ForegroundColorSpan(color),0, resultString.length, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
         return resultString
+    }
+
+    fun showGenericErrorToast(context: Context?){
+        context?: return
+        Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show()
     }
 }

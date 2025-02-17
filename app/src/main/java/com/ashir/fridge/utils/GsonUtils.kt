@@ -1,9 +1,10 @@
 package com.ashir.fridge.utils
 
+import com.ashir.fridge.http.CronetCallback
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.threemusketeers.dliverCustomer.main.utils.extensions.toJSONObject
-import com.ashir.fridge.http.CronetCallback
+import okhttp3.Response
 import org.json.JSONObject
 
 object GsonUtils {
@@ -32,6 +33,15 @@ object GsonUtils {
     fun <T> fromJsonRestResp(response: CronetCallback.ResponseBody?, classType: Class<T>): T? {
         return try {
             val jsonString = response?.content.toString()
+            Gson().fromJson(jsonString, classType)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    fun <T> fromJsonRestResp(response: Response?, classType: Class<T>): T? {
+        return try {
+            val jsonString = response?.body?.string()
             Gson().fromJson(jsonString, classType)
         } catch (e: Exception) {
             null

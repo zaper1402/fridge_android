@@ -1,4 +1,4 @@
-package com.threemusketeers.dliverCustomer.main.utils.sharedprefs
+package com.ashir.fridge.utils.sharedprefs
 
 object SharedPrefConstants {
     const val SHOP_LOCATION = "shop_location"

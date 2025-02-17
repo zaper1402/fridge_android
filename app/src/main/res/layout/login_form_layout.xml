@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,8 +50,8 @@
                 android:layout_marginHorizontal="35dp"
                 android:layout_marginTop="11dp"
                 android:background="@drawable/form_field_background"
-                android:hint="bazil@gmail.com"
-                android:inputType="text"
+                android:hint="yourEmail@gmail.com"
+                android:inputType="textEmailAddress"
                 android:paddingHorizontal="38dp"
                 android:paddingVertical="12dp"
                 android:textColor="@color/text_primary"
@@ -95,11 +96,12 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:hint="●●●●●●●●"
-                    android:inputType="text"
+                    android:inputType="textPassword"
                     android:paddingVertical="11dp"
                     android:textColor="@color/text_primary"
                     android:textColorHint="@color/text_tertiary"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/image_password_visibility"
                     app:layout_constraintStart_toStartOf="parent"
@@ -178,6 +180,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="32dp"
             android:layout_marginBottom="54dp"
+            android:clickable="true"
+            android:focusable="true"
             android:background="@drawable/secondary_button_30_bg"
             android:paddingHorizontal="36dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -205,6 +209,8 @@
                 android:textColor="#FFFCF8"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:clickable="false"
+                android:focusable="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/image_google_icon"
@@ -213,8 +219,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/login_frame"
-        android:clickable="true"
-        android:focusable="true"
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

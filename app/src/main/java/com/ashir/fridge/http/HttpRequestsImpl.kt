@@ -2,9 +2,9 @@ package com.ashir.fridge.http
 
 import android.util.Log
 import com.ashir.fridge.FridgeApplication
-import com.threemusketeers.dliverCustomer.main.utils.extensions.defaultValueIfNull
-import com.threemusketeers.dliverCustomer.main.utils.sharedprefs.SharedPrefConstants
+import com.ashir.fridge.utils.sharedprefs.SharedPrefConstants
 import com.ashir.fridge.utils.sharedprefs.SharedPrefUtil
+import com.threemusketeers.dliverCustomer.main.utils.extensions.defaultValueIfNull
 import org.chromium.net.CronetEngine
 import org.chromium.net.UploadDataProvider
 import org.chromium.net.UrlRequest

@@ -1,4 +1,4 @@
-package com.threemusketeers.dliverCustomer.main.utils.extensions
+package com.ashir.fridge.utils.extensions
 
 import android.graphics.Bitmap
 import android.graphics.Canvas

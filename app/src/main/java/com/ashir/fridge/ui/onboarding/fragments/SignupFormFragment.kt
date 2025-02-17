@@ -14,23 +14,22 @@ import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.ashir.fridge.R
 import com.ashir.fridge.databinding.SignupFormLayoutBinding
 import com.ashir.fridge.firebase.FirebaseEventsListener
 import com.ashir.fridge.firebase.FirebaseManager
+import com.ashir.fridge.firebase.GoogleSignInManager
+import com.ashir.fridge.firebase.GoogleSignInManager.Companion.RC_SIGN_IN
 import com.ashir.fridge.ui.onboarding.interfaces.OnboardingStateListener
 import com.ashir.fridge.ui.onboarding.viemodel.OnboardingSharedViewModel
+import com.ashir.fridge.utils.sharedprefs.SharedPrefConstants
 import com.ashir.fridge.utils.sharedprefs.SharedPrefUtil
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.threemusketeers.dliverCustomer.main.utils.sharedprefs.SharedPrefConstants
 import java.lang.ref.WeakReference
 
 
@@ -40,20 +39,28 @@ class SignupFormFragment : Fragment() {
     private val auth = Firebase.auth
     private var onboardingStateListener : OnboardingStateListener? = null
     private val mOnboardingSharedViewModel : OnboardingSharedViewModel by activityViewModels()
+    private val formFields = HashMap<String, String>(
+        mapOf(
+            "email" to "",
+            "password" to "",
+            "phone" to "",
+            "name" to "",
+        )
+    )
 
-    private lateinit var googleSignInClient: GoogleSignInClient
-    private val RC_SIGN_IN = 9001
     private var isValid:Boolean = false
-
+    private var googleSignInManager: GoogleSignInManager? = null
+    private val binding = mBinding!!
     companion object {
         const val TAG = "PhoneNumberFragment"
-        fun getInstance(onboardingStateListener: OnboardingStateListener?) = SignupFormFragment().apply {
+        fun getInstance(email:String, password: String,onboardingStateListener: OnboardingStateListener?) = SignupFormFragment().apply {
             this.onboardingStateListener = onboardingStateListener
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = SignupFormLayoutBinding.inflate(inflater, container, false)
+        googleSignInManager = GoogleSignInManager(WeakReference(context), WeakReference(this))
         return mBinding?.root
     }
 
@@ -61,7 +68,7 @@ class SignupFormFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupObserver()
         setupUi()
-        setupGoogleSignIn()
+        googleSignInManager?.setupGoogleSignIn()
         setupClickListeners()
     }
 
@@ -94,16 +101,6 @@ class SignupFormFragment : Fragment() {
         })
     }
 
-    private fun setupGoogleSignIn() {
-        // Configure Google Sign In
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-
-        googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
-    }
-
 
 
     private fun disableEnableLoginButton(isEnabled: Boolean) {
@@ -114,12 +111,6 @@ class SignupFormFragment : Fragment() {
     private fun isValidIndianPhoneNumber(phoneNumber: String): Boolean {
         val regex = Regex("^[6-9]\\d{9}$")
         return phoneNumber.length == 10 && regex.matches(phoneNumber)
-    }
-    private fun signInWithGoogle() {
-        googleSignInClient.signOut().addOnCompleteListener {
-            val signInIntent = googleSignInClient.signInIntent
-            startActivityForResult(signInIntent, RC_SIGN_IN)
-        }
     }
 
 
@@ -161,11 +152,21 @@ class SignupFormFragment : Fragment() {
         })
         mBinding?.layoutGoogleSignUp?.setOnClickListener {
 //            showLoading()
-            signInWithGoogle()
+            googleSignInManager?.signInWithGoogle()
         }
 
     }
 
+    private fun handleFieldValidation(email: String, password: String): Boolean {
+        if(email.isBlank()){
+            Toast.makeText(context, "Email invalid", Toast.LENGTH_SHORT).show()
+            return false
+        }else if(password.isBlank()){
+            Toast.makeText(context, "Password invalid", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
+    }
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -190,7 +191,9 @@ class SignupFormFragment : Fragment() {
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
 
-                    SharedPrefUtil.getAuthInstance().saveString(SharedPrefConstants.LOGIN_METHOD,SharedPrefConstants.GOOGLE_METHOD)
+                    SharedPrefUtil.getAuthInstance().saveString(
+                        SharedPrefConstants.LOGIN_METHOD,
+                        SharedPrefConstants.GOOGLE_METHOD)
                     val user = auth.currentUser
                     handleSuccessfulLogin(user)
                 } else {
@@ -222,8 +225,7 @@ class SignupFormFragment : Fragment() {
             FirebaseManager.getUserToken(WeakReference(context), user, object :
                 FirebaseEventsListener {
                 override fun onTokenReceived(idToken: String) {
-                    // Verify user
-//                    mOnboardingSharedViewModel.verifyUser()
+                    mOnboardingSharedViewModel.verifyUser()
                 }
 
                 override fun onTokenError(error: String?) {
@@ -236,26 +238,10 @@ class SignupFormFragment : Fragment() {
     }
 
     private fun setupObserver() {
-//        mOnboardingSharedViewModel.verifyStatusLiveData.observe(viewLifecycleOwner) {
-//            when(it){
-//                is Result.Success -> {
-//                    hideLoading()
-//                }
-//                is Result.InProgress -> {}
-//                is Result.Error<*> -> {}
-//            }
-//        }
+
     }
 
 
-
-
-//    private fun showLoading(){
-//        mBinding?.progressBar2?.progressOverlay?.visibility = View.VISIBLE
-//    }
-//    private fun hideLoading(){
-//        mBinding?.progressBar2?.progressOverlay?.visibility = View.GONE
-//    }
 
     private fun showToast(text: String){
         Toast.makeText(requireContext(), text, Toast.LENGTH_LONG).show()

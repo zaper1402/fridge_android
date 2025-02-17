@@ -3,6 +3,7 @@ package com.ashir.fridge
 import android.app.Application
 import android.util.Log
 import com.ashir.fridge.firebase.FirebaseManager
+import com.ashir.fridge.http.HttpDomainManager
 import com.google.android.gms.net.CronetProviderInstaller
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -25,6 +26,11 @@ class FridgeApplication : Application() {
                 Log.w(TAG, "Unable to load Cronet from Play Services", it.exception)
             }
         }
+        HttpDomainManager.toggleProductionOrStagingConfiguration(
+            isProduction = false,
+            isDocker = false,
+            isLocalhost = true
+        )
         setFirebaseTokenIfExist()
     }
 

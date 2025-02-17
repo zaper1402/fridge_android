@@ -5,7 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseUser
-import com.threemusketeers.dliverCustomer.main.utils.sharedprefs.SharedPrefConstants
+import com.ashir.fridge.utils.sharedprefs.SharedPrefConstants
 import com.ashir.fridge.utils.sharedprefs.SharedPrefUtil
 import java.lang.ref.WeakReference
 

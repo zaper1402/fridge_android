@@ -17,7 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.threemusketeers.dliverCustomer.main.utils.sharedprefs.SharedPrefConstants
+import com.ashir.fridge.utils.sharedprefs.SharedPrefConstants
 
 class MainActivity : AppCompatActivity() {
 
