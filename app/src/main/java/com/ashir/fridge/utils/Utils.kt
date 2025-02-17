@@ -10,12 +10,12 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Process
 import android.provider.Settings
-import android.telephony.TelephonyManager
 import android.text.TextUtils
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
@@ -23,7 +23,6 @@ import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.common.util.CollectionUtils
 import com.threemusketeers.dliverCustomer.main.utils.extensions.floorTo
 import com.threemusketeers.dliverCustomer.main.utils.extensions.getAppContext
-import com.ashir.fridge.utils.managers.AppDeviceManager
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -34,6 +33,9 @@ import java.io.FileWriter
 import java.io.IOException
 import java.io.InputStream
 import java.text.DecimalFormat
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 
 object Utils {
@@ -805,4 +807,35 @@ object Utils {
 //            ToastUtils.showToastShort(activity.getString(R.string.copied))
 //        }
 //    }
+
+     fun isValidDate(dateStr: String?): Boolean {
+        return try {
+            SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(dateStr)
+            true
+        } catch (e: ParseException) {
+            false
+        }
+    }
+
+    fun showDatePickerDialog(
+        context: Context,
+        dateSetListener: TextView?,
+        ) {
+        val calendar = java.util.Calendar.getInstance()
+        val currentYear = calendar.get(java.util.Calendar.YEAR)
+        val currentMonth = calendar.get(java.util.Calendar.MONTH)
+        val currentDay = calendar.get(java.util.Calendar.DAY_OF_MONTH)
+        val datePickerDialog = android.app.DatePickerDialog(
+            context,
+            { _, year, month, dayOfMonth ->
+                val monthStr = if (month + 1 < 10) "0${month + 1}" else "${month + 1}"
+                val dayStr = if (dayOfMonth < 10) "0$dayOfMonth" else "$dayOfMonth"
+                dateSetListener?.text = "$dayStr/$monthStr/$year"
+            },
+            currentYear,
+            currentMonth,
+            currentDay
+        )
+        datePickerDialog.show()
+    }
 }

@@ -53,15 +53,22 @@ class OnboardingFragment : Fragment() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = LoginFormLayoutBinding.inflate(inflater, container, false)
-        setupUi()
         googleSignInManager.setupGoogleSignIn()
-        setupObserver()
         return mBinding?.root
     }
 
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupUi()
+        setupObserver()
+        mBinding?.layoutGoogleSignUp?.addPressFeedback()
+    }
 
     private fun setupUi() {
         setupClickListeners()
@@ -92,9 +99,7 @@ class OnboardingFragment : Fragment() {
         binding.signupBtn.debouncedClickListener {
             val email = binding.editEmail.text.toString()
             val password = binding.editPassword.text.toString()
-            if (handleFieldValidation(email, password)) {
-                openSignUpFormFragment(email, password)
-            }
+            openSignUpFormFragment(email, password)
         }
 
         binding.layoutGoogleSignUp.debouncedClickListener{
@@ -102,11 +107,6 @@ class OnboardingFragment : Fragment() {
         }
 
 
-    }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        mBinding?.layoutGoogleSignUp?.addPressFeedback()
-        setupObserver()
     }
 
     private fun handleFieldValidation(email: String, password: String): Boolean {
@@ -127,9 +127,15 @@ class OnboardingFragment : Fragment() {
             when(it?.state){
                 OnboardingStates.UNKNOWN -> {
                     if(auth.currentUser != null){
-                        binding.loginFrame.setGone()
+                        binding.onbFrame.setGone()
                         mOnboardingSharedViewModel.setOnboardingState(OnboardingStates.COMPLETED)
+                    }else {
+                        mOnboardingSharedViewModel.setOnboardingState(OnboardingStates.LOGIN)
                     }
+                }
+                OnboardingStates.LOGIN -> {
+                    binding.onbFrame.removeAllViews()
+                    binding.onbFrame.setGone()
                 }
                 OnboardingStates.CUSTOMER_DETAILS_SCREEN -> {
                     val email = it.data?.optString("email")?:""
@@ -153,30 +159,18 @@ class OnboardingFragment : Fragment() {
         mOnboardingSharedViewModel.userLoginLiveData.observe(viewLifecycleOwner) {
             when(it){
                 is Result.Success -> {
+                    AccountManager.saveAccountInfo(it.data)
                     onboardingStateListener?.onLoginSuccessful(OnboardingStates.COMPLETED,auth.currentUser)
                 }
-                is Result.InProgress -> {}
+                is Result.InProgress -> {
+                    //todo show loading
+                }
                 is Result.Error<*> -> {
                     ViewUtils.showGenericErrorToast(context)
                 }
             }
         }
 
-//        mOnboardingSharedViewModel.accountStatusLiveData.observe(viewLifecycleOwner) {
-//            when(it){
-//                is Result.InProgress -> {
-//                    //todo show loading
-//                }
-//                is Result.Success -> {
-//                    AccountManager.saveAccountInfo(it.data)
-//                    handleState()
-//                }
-//                is Result.Error<*> -> {
-//                    //todo show error
-//                }
-//            }
-//        }
-//
         mOnboardingSharedViewModel.verifyUserLiveData.observe(viewLifecycleOwner) {
             when(it){
                 is Result.Success -> {
@@ -200,8 +194,8 @@ class OnboardingFragment : Fragment() {
     }
 
     private fun openSignUpFormFragment(email: String,password: String, isDefaultScreen: Boolean = true) {
-        mBinding?.loginFrame?.id?.let { frame ->
-            binding.loginFrame.setVisible()
+        mBinding?.onbFrame?.id?.let { frame ->
+            binding.onbFrame.setVisible()
             val fragment = activity?.supportFragmentManager?.beginTransaction()?.replace(frame,
                 SignupFormFragment.getInstance(email,password,onboardingStateListener)
             )

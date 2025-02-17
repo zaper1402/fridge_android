@@ -24,7 +24,7 @@
 
 <!--    button-->
     <color name="button_primary">#14AE5C</color>
-    <color name="button_secondary">#B2D8D8</color>
+    <color name="button_secondary">#C300BCD4</color>
     <color name="button_tertiary">#65558F</color>
 
 </resources>

@@ -161,7 +161,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <TextView
-                android:id="@+id/text_sign_up_button"
+                android:id="@+id/text_sign_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sign up"
@@ -174,51 +174,31 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TextView
             android:id="@+id/layout_google_sign_up"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
-            android:layout_marginBottom="54dp"
-            android:clickable="true"
-            android:focusable="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="60dp"
             android:background="@drawable/secondary_button_30_bg"
+            android:clickable="false"
+            android:drawableLeft="@drawable/ic_google_white"
+            android:drawablePadding="40dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="text"
             android:paddingHorizontal="36dp"
+            android:paddingVertical="22dp"
+            android:text="Sign up with Google"
+            android:textColor="@color/bg"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <ImageView
-                android:id="@+id/image_google_icon"
-                android:layout_width="22dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="32dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_google_white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/edit_google_sign_up"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:paddingVertical="22dp"
-                android:text="Sign up with Google"
-                android:textColor="#FFFCF8"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:clickable="false"
-                android:focusable="false"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/image_google_icon"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintStart_toStartOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/login_frame"
+        android:id="@+id/onb_frame"
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

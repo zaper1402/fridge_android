@@ -82,7 +82,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
             <TextView
-                android:id="@+id/text_sign_up_button"
+                android:id="@+id/text_sign_up"
                 android:textColor="#FFFCF8"
                 android:textSize="20sp"
                 android:textStyle="bold"

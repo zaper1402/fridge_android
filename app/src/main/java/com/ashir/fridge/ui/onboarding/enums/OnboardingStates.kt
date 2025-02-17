@@ -5,6 +5,7 @@ import java.io.Serializable
 
 enum class OnboardingStates {
     UNKNOWN,
+    LOGIN,
     CUSTOMER_DETAILS_SCREEN,
     COMPLETED;
 

@@ -1,5 +1,6 @@
 package com.ashir.fridge.utils
 
+import android.util.Log
 import com.ashir.fridge.http.CronetCallback
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -35,6 +36,7 @@ object GsonUtils {
             val jsonString = response?.content.toString()
             Gson().fromJson(jsonString, classType)
         } catch (e: Exception) {
+            Log.e("GsonUtils", "fromJsonRestResp: ${e.message}")
             null
         }
     }
@@ -44,6 +46,7 @@ object GsonUtils {
             val jsonString = response?.body?.string()
             Gson().fromJson(jsonString, classType)
         } catch (e: Exception) {
+            Log.e("GsonUtils", "fromJsonRestResp: ${e.message}")
             null
         }
     }

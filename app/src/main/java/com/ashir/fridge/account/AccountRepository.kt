@@ -40,4 +40,25 @@ object AccountRepository {
             }
         }
     }
+
+    suspend fun getSelfUser() : Result<User> {
+        return withContext(Dispatchers.IO) {
+            suspendCoroutine { continuation ->
+               HttpRequests.getSelfUser(object : Callback {
+                    override fun onFailure(call: Call, e: IOException) {
+                        continuation.resume(Result.Error(e))
+                    }
+
+                    override fun onResponse(call: Call, response: Response) {
+                        val data  = GsonUtils.fromJsonRestResp(response, User::class.java)
+                        if(data != null){
+                            continuation.resume(Result.Success(data))
+                        }else {
+                            continuation.resume(Result.Error("Data null"))
+                        }
+                    }
+                })
+            }
+        }
+    }
 }

@@ -28,6 +28,9 @@ class OnboardingSharedViewModel : BaseViewModel() {
     val verifyUserLiveData : LiveData<Result<User>> get() = _verifyUserLiveData
     private val _verifyUserLiveData = MutableLiveData<Result<User>>()
 
+    val signupUserLiveData : LiveData<Result<User>> get() = _signupUserLiveData
+    private val _signupUserLiveData = MutableLiveData<Result<User>>()
+
     fun setOnboardingState(state: OnboardingStates, data: JSONObject? = null){
         val onbData = OnboardingStatesData(state,data)
         SharedPrefUtil.getDefaultInstance().saveDataObject(SharedPrefConstants.ONBOARDING_STATE,onbData)
@@ -49,4 +52,10 @@ class OnboardingSharedViewModel : BaseViewModel() {
     }
 
 
+    fun signupUser(form: HashMap<String,String>) {
+        _signupUserLiveData.postValue(Result.InProgress())
+        viewModelScope.launch {
+            _signupUserLiveData.postValue(OnboardingRepository.signUpUser(form))
+        }
+    }
 }

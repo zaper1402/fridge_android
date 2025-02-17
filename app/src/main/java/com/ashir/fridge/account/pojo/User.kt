@@ -1,20 +1,20 @@
 package com.ashir.fridge.account.pojo
 
+import com.google.gson.annotations.SerializedName
 import java.time.LocalDate
 
 
 data class User(
     val id: Int,
-    val username: String,
     val name: String,
     val email: String,
+    @SerializedName("phone_number")
     val phoneNumber: String?,
-    val dateOfBirth: LocalDate?,
+    @SerializedName("date_of_birth")
+    val dateOfBirth: String?,
     val gender: String?,
     val photo: String?, // path or URL
-    val preferences: List<String>?,
-    val groups: List<String>?,         // You can change this to a proper Group type if needed
-    val userPermissions: List<String>?   // Same for permissions
+    val preferences: List<String>?
 )
 
 data class Product(

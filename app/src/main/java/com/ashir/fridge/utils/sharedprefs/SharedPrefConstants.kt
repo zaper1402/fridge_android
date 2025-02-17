@@ -17,4 +17,5 @@ object SharedPrefConstants {
     const val PHONE_NUMBER = "phone"
     const val FACEBOOK = "facebook"
     const val STAGING_PRODUCTION_TOGGLE = "staging_production_toggle"
+    const val UID = "uid"
 }
