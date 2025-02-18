@@ -838,4 +838,9 @@ object Utils {
         )
         datePickerDialog.show()
     }
+
+    fun showDateFromTime(time: Long): String {
+        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        return sdf.format(time)
+    }
 }

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.ashir.fridge.R
 import com.ashir.fridge.account.AccountManager
+import com.ashir.fridge.account.pojo.User
 import com.ashir.fridge.databinding.LoginFormLayoutBinding
 import com.ashir.fridge.firebase.FirebaseEventsListener
 import com.ashir.fridge.firebase.FirebaseManager
@@ -20,6 +21,7 @@ import com.ashir.fridge.http.Result
 import com.ashir.fridge.ui.onboarding.enums.OnboardingStates
 import com.ashir.fridge.ui.onboarding.interfaces.OnboardingStateListener
 import com.ashir.fridge.ui.onboarding.viemodel.OnboardingSharedViewModel
+import com.ashir.fridge.utils.GsonUtils
 import com.ashir.fridge.utils.extensions.addPressFeedback
 import com.ashir.fridge.utils.sharedprefs.SharedPrefConstants
 import com.ashir.fridge.utils.sharedprefs.SharedPrefUtil
@@ -160,7 +162,7 @@ class OnboardingFragment : Fragment() {
             when(it){
                 is Result.Success -> {
                     AccountManager.saveAccountInfo(it.data)
-                    onboardingStateListener?.onLoginSuccessful(OnboardingStates.COMPLETED,auth.currentUser)
+                    mOnboardingSharedViewModel.setOnboardingState(OnboardingStates.COMPLETED,GsonUtils.toJson(it.data))
                 }
                 is Result.InProgress -> {
                     //todo show loading
@@ -175,7 +177,7 @@ class OnboardingFragment : Fragment() {
             when(it){
                 is Result.Success -> {
                     AccountManager.saveAccountInfo(it.data)
-                    handleState()
+                    handleState(it.data)
                 }
                 is Result.InProgress -> {}
                 is Result.Error<*> -> {
@@ -185,11 +187,11 @@ class OnboardingFragment : Fragment() {
         }
     }
 
-    private fun handleState() {
+    private fun handleState(data: User) {
         if(AccountManager.user?.phoneNumber.isNullOrBlank() || AccountManager.user?.email.isNullOrBlank() || AccountManager.user?.name.isNullOrBlank() || AccountManager.user?.dateOfBirth.isNull()){
             mOnboardingSharedViewModel.setOnboardingState(OnboardingStates.CUSTOMER_DETAILS_SCREEN)
         } else {
-            mOnboardingSharedViewModel.setOnboardingState(OnboardingStates.COMPLETED)
+            mOnboardingSharedViewModel.setOnboardingState(OnboardingStates.COMPLETED,GsonUtils.toJson(data))
         }
     }
 

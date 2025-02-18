@@ -23,4 +23,12 @@ object HttpRequests {
     fun getSelfUser(callback: Callback) {
         return clientManager.get(HttpDomainManager.generateUrl(DomainType.BASE_DOMAIN,"/user/get?uid${AccountManager.uid}"), callback)
     }
+
+    fun getProductList(callback: Callback) {
+        return clientManager.get(HttpDomainManager.generateUrl(DomainType.BASE_DOMAIN,"/product/get-product-list"), callback)
+    }
+
+    fun addProduct(payload : JSONObject, callback: Callback) {
+        return clientManager.post(HttpDomainManager.generateUrl(DomainType.BASE_DOMAIN,"/user/addProduct"), payload.toString(), callback)
+    }
 }

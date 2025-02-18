@@ -5,4 +5,6 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_profile">Profile</string>
     <string name="the_fridge_is_empty_now_nplease_add_ingredients">The Fridge is empty Now. \nPlease add Ingredients</string>
+    <string name="s_fridge">%1$s\'s Fridge</string>
+    <string name="please_wait_fetching_all_your_items">Please wait fetching all your items...</string>
 </resources>

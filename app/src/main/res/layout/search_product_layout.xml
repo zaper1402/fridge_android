@@ -1,52 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:background="@color/bg"
+    android:clickable="true">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/search_bar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Search an item"
+            android:drawableStart="@drawable/ic_search_black"
+            android:drawablePadding="10dp"
+            android:textSize="16sp"
+            android:layout_marginHorizontal="33dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="53dp"
             android:background="@drawable/bg1_background_15"
             android:gravity="center_vertical"
             android:paddingHorizontal="15dp"
-            android:layout_marginBottom="53dp"
-            android:layout_marginHorizontal="33dp"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/search_ic"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginEnd="11dp"
-                android:src="@drawable/ic_search_black"
-                android:scaleType="fitXY"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-            <EditText
-                android:id="@+id/search_bar_et"
-                android:layout_width="0dp"
-                android:layout_marginStart="4dp"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:hint="Search "
-                android:background="@null"
-                android:textColor="#7C7C7C"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:paddingVertical="17dp"
-                app:layout_constraintStart_toEndOf="@id/search_ic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_container_view"
+            android:elevation="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

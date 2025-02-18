@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:background="@color/bg">
 
     <ScrollView
         android:id="@+id/rr850vt1u3j"
@@ -152,15 +154,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_brand" />
 
-            <EditText
+            <TextView
                 android:id="@+id/expiry_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="35dp"
                 android:layout_marginTop="11dp"
                 android:background="@drawable/form_field_background"
-                android:hint="500"
-                android:inputType="date"
+                android:hint="DD / MM /YYY"
                 android:paddingHorizontal="38dp"
                 android:paddingVertical="12dp"
                 android:textColor="@color/text_primary"
@@ -202,6 +203,35 @@
                 app:layout_constraintStart_toEndOf="@id/checkbox_standard_expiry"
                 app:layout_constraintTop_toTopOf="@id/checkbox_standard_expiry"
                 app:layout_constraintBottom_toBottomOf="@id/checkbox_standard_expiry" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_save_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="26dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/primary_bg_30"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingVertical="13dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/checkbox_standard_expiry">
+
+                <TextView
+                    android:id="@+id/text_sign_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Done"
+                    android:textColor="#FFFCF8"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

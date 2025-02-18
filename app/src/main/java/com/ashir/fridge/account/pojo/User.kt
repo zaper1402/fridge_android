@@ -1,6 +1,7 @@
 package com.ashir.fridge.account.pojo
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 import java.time.LocalDate
 
 
@@ -19,9 +20,14 @@ data class User(
 
 data class Product(
     val id: Int,
-    val name: String
+    val name: String,
+    val category: String,
+    val tags: List<String>,
+    val allergyTags: AllergyTags,
+    @SerializedName("standard_expiry_days")
+    val standardExpiryDays: Int,
     // Add additional fields as needed
-)
+) : Serializable
 
 data class Entry(
     val id: Int,

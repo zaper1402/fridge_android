@@ -51,10 +51,12 @@ object AccountRepository {
 
                     override fun onResponse(call: Call, response: Response) {
                         val data  = GsonUtils.fromJsonRestResp(response, User::class.java)
-                        if(data != null){
+                        if(data == null) {
+                            continuation.resume(Result.Error("Data null"))
+                        }else if(response.isSuccessful){
                             continuation.resume(Result.Success(data))
                         }else {
-                            continuation.resume(Result.Error("Data null"))
+                            continuation.resume(Result.Error(response))
                         }
                     }
                 })

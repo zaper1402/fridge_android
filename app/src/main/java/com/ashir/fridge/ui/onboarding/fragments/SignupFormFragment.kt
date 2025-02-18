@@ -24,6 +24,7 @@ import com.ashir.fridge.http.Result
 import com.ashir.fridge.ui.onboarding.enums.OnboardingStates
 import com.ashir.fridge.ui.onboarding.interfaces.OnboardingStateListener
 import com.ashir.fridge.ui.onboarding.viemodel.OnboardingSharedViewModel
+import com.ashir.fridge.utils.GsonUtils
 import com.ashir.fridge.utils.PhoneNumberUtils
 import com.ashir.fridge.utils.Utils
 import com.ashir.fridge.utils.sharedprefs.SharedPrefConstants
@@ -340,7 +341,7 @@ class SignupFormFragment : Fragment() {
                 }
                 is Result.Success -> {
                     AccountManager.saveAccountInfo(it.data)
-                    mOnboardingSharedViewModel.setOnboardingState(OnboardingStates.COMPLETED)
+                    mOnboardingSharedViewModel.setOnboardingState(OnboardingStates.COMPLETED,GsonUtils.toJson(it.data))
 
                 }
             }

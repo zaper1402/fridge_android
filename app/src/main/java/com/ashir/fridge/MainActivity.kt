@@ -6,18 +6,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.ashir.fridge.account.AccountManager
 import com.ashir.fridge.databinding.ActivityMainBinding
+import com.ashir.fridge.http.Result
 import com.ashir.fridge.ui.MainActivityViewModel
 import com.ashir.fridge.ui.onboarding.enums.OnboardingStates
 import com.ashir.fridge.ui.onboarding.enums.OnboardingStatesData
 import com.ashir.fridge.ui.onboarding.fragments.OnboardingFragment
 import com.ashir.fridge.ui.onboarding.interfaces.OnboardingStateListener
+import com.ashir.fridge.utils.sharedprefs.SharedPrefConstants
 import com.ashir.fridge.utils.sharedprefs.SharedPrefUtil
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.ashir.fridge.utils.sharedprefs.SharedPrefConstants
+import okhttp3.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,17 +52,42 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        installSplashScreen()
+        user = auth.currentUser
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        user = auth.currentUser
+        setupObservers()
         handleBasedOnAuth()
 
     }
 
+    private fun setupObservers() {
+        mainActivityViewModel?.getSelfUserLiveData?.observe(this ){
+            when(it){
+                is Result.Success -> {
+                    AccountManager.saveAccountInfo(it.data)
+                    setupPostLogin()
+                }
+                is Result.Error<*> -> {
+                    val resp = it.responseBody as? Response
+                    if(resp?.code == 404){
+                        setupPreLogin()
+                    }else {
+                        // todo
+                    }
+                }
+                is Result.InProgress -> {
+
+                }
+            }
+        }
+    }
+
     private fun handleBasedOnAuth() {
-        if (user == null || (SharedPrefUtil.getDefaultInstance().getDataObject(SharedPrefConstants.ONBOARDING_STATE, OnboardingStatesData::class.java)?.state ?: OnboardingStates.UNKNOWN) != OnboardingStates.COMPLETED) {
+        if ((SharedPrefUtil.getDefaultInstance().getDataObject(SharedPrefConstants.ONBOARDING_STATE, OnboardingStatesData::class.java)?.state ?: OnboardingStates.UNKNOWN) != OnboardingStates.COMPLETED || AccountManager.uid == null) {
             setupPreLogin()
-        } else {
+        } else if(user == null || auth.currentUser == null){
+            mainActivityViewModel?.getSelfUser()
+        }else {
             setupPostLogin()
         }
     }
@@ -67,6 +95,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupPostLogin() {
         binding.postLoginParent.visibility = View.VISIBLE
         binding.preLoginParent.visibility = View.GONE
+        binding.preLoginParent.removeAllViews()
 //        mainActivityViewModel?.getCustomerAccountData(AccountManager.uid)
         val navView: BottomNavigationView = binding.navView
 
@@ -82,9 +111,11 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
-    private fun setupPreLogin() {
+    fun setupPreLogin() {
         binding.postLoginParent.visibility = View.GONE
         binding.preLoginParent.visibility = View.VISIBLE
         supportFragmentManager.beginTransaction().add(binding.preLoginParent.id, OnboardingFragment.getInstance(onboardingStateListener)).commit()
     }
+
+
 }
