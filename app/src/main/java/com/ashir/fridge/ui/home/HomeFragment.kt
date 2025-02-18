@@ -143,7 +143,7 @@ class HomeFragment : Fragment() {
     private fun setupClickListeners() {
         // Setup Click Listeners
         binding.floatingAddBtn.setOnClickListener {
-            openChildFragment(SearchProductFragment.newInstance(""), SearchProductFragment.TAG, false)
+            openChildFragment(SearchProductFragment.newInstance(""), SearchProductFragment.TAG, true)
         }
     }
 
