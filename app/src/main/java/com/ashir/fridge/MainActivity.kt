@@ -1,6 +1,8 @@
 package com.ashir.fridge
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -28,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private val auth = Firebase.auth
     private var user: FirebaseUser? = null
     private var mainActivityViewModel : MainActivityViewModel? = null
+    val uiHandler = Handler(Looper.getMainLooper())
 
     companion object {
         const val TAG = "MainActivity"
@@ -52,9 +55,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        installSplashScreen()
-        user = auth.currentUser
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        user = auth.currentUser
+        mainActivityViewModel = MainActivityViewModel()
+        uiHandler.post {
+            val navView: BottomNavigationView = binding.navView
+            val navController = findNavController(R.id.nav_host_fragment_activity_main)
+            navView.setupWithNavController(navController)
+        }
         setupObservers()
         handleBasedOnAuth()
 
@@ -97,9 +106,7 @@ class MainActivity : AppCompatActivity() {
         binding.preLoginParent.visibility = View.GONE
         binding.preLoginParent.removeAllViews()
 //        mainActivityViewModel?.getCustomerAccountData(AccountManager.uid)
-        val navView: BottomNavigationView = binding.navView
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
@@ -108,7 +115,6 @@ class MainActivity : AppCompatActivity() {
             )
         )
 //        setupActionBarWithNavController(navController)
-        navView.setupWithNavController(navController)
     }
 
     fun setupPreLogin() {
