@@ -1,5 +1,9 @@
 package com.ashir.fridge.account.pojo
 
+import com.ashir.fridge.utils.IModel
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
+
 //
 //class Categories(models.TextChoices):
 //    FRUIT = 'Fruit'
@@ -27,6 +31,15 @@ package com.ashir.fridge.account.pojo
 //NON_ALCOHOLIC_DRINKS = 'Non-alcoholic Drinks'
 //BAKING_INGREDIENTS = 'Baking Ingredients'
 //OTHER = 'Other'
+
+
+data class  HomeProductCategories(
+    val categories: List<HomeProductCategory>
+) : IModel
+
+data class HomeProductCategory(
+    @SerializedName("product_category") val productCategory: String
+) : IModel, Serializable
 
 enum class Categories(val value: String) {
     FRUITS("Fruits"),

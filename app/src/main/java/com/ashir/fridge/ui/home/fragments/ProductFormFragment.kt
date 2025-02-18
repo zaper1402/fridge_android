@@ -159,7 +159,7 @@ class ProductFormFragment : Fragment() {
                     }
                 }
                 is Result.InProgress -> {
-
+                    // todo
                 }
             }
         }

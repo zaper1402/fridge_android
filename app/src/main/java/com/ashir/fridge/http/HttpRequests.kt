@@ -21,7 +21,17 @@ object HttpRequests {
     }
 
     fun getSelfUser(callback: Callback) {
-        return clientManager.get(HttpDomainManager.generateUrl(DomainType.BASE_DOMAIN,"/user/get?uid${AccountManager.uid}"), callback)
+        return clientManager.get(HttpDomainManager.generateUrl(DomainType.BASE_DOMAIN,"/user/get?uid=${AccountManager.uid}"), callback)
+    }
+
+    fun getUserInventoryCategories(callback: Callback) {
+        val userId = AccountManager.uid
+        return clientManager.get(HttpDomainManager.generateUrl(DomainType.BASE_DOMAIN,"/user/get-all-categories?user_id=${userId}"), callback)
+    }
+
+    fun getProductByCategory(category: String, callback: Callback) {
+        val userId = AccountManager.uid
+        return clientManager.get(HttpDomainManager.generateUrl(DomainType.BASE_DOMAIN,"/user/get-products?category=${category}&user_id=${userId}"), callback)
     }
 
     fun getProductList(callback: Callback) {
@@ -30,5 +40,9 @@ object HttpRequests {
 
     fun addProduct(payload : JSONObject, callback: Callback) {
         return clientManager.post(HttpDomainManager.generateUrl(DomainType.BASE_DOMAIN,"/user/addProduct"), payload.toString(), callback)
+    }
+
+    fun updateProduct(payload :String, callback: Callback) {
+        return clientManager.post(HttpDomainManager.generateUrl(DomainType.BASE_DOMAIN,"/user/update-products"), payload, callback)
     }
 }

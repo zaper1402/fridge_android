@@ -4,6 +4,7 @@ import android.util.Log
 import com.ashir.fridge.http.CronetCallback
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import com.threemusketeers.dliverCustomer.main.utils.extensions.toJSONObject
 import okhttp3.Response
 import org.json.JSONObject
@@ -69,4 +70,16 @@ object GsonUtils {
     fun toJson(obj: Any?): JSONObject? {
         return gson.toJson(obj).toJSONObject()
     }
+
+
+    fun <T> toJsonArray(list: List<T>): String? {
+        return try {
+            gson.toJson(list, object : TypeToken<List<T>>() {}.type)
+        } catch (e: Exception) {
+            Log.e("GsonUtils", "toJsonArray: ${e.message}")
+            null
+        }
+    }
+
+
 }

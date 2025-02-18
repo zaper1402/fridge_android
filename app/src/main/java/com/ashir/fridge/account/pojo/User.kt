@@ -2,7 +2,6 @@ package com.ashir.fridge.account.pojo
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
-import java.time.LocalDate
 
 
 data class User(
@@ -26,23 +25,7 @@ data class Product(
     val allergyTags: AllergyTags,
     @SerializedName("standard_expiry_days")
     val standardExpiryDays: Int,
+    @SerializedName("photo")
+    val totalQuantity: Long
     // Add additional fields as needed
 ) : Serializable
-
-data class Entry(
-    val id: Int,
-    val userInventoryId: Int, // Foreign key to UserProduct
-    val quantity: Float,
-    val expiryDate: LocalDate,
-    val creationDate: LocalDate
-)
-
-data class UserProduct(
-    val id: Int,
-    val product: Product,
-    val userId: Int,
-    val entries: List<Entry> = emptyList()
-) {
-    val totalQuantity: Float
-        get() = entries.sumOf { it.quantity.toDouble() }.toFloat()
-}

@@ -10,11 +10,16 @@ import androidx.fragment.app.viewModels
 import com.ashir.fridge.MainActivity
 import com.ashir.fridge.R
 import com.ashir.fridge.account.AccountManager
-import com.ashir.fridge.account.pojo.Categories
+import com.ashir.fridge.account.pojo.HomeProductCategories
+import com.ashir.fridge.account.pojo.HomeProductCategory
 import com.ashir.fridge.databinding.FragmentHomeBinding
 import com.ashir.fridge.http.Result
 import com.ashir.fridge.ui.MainActivityViewModel
+import com.ashir.fridge.ui.home.adapters.HomeCategoriesRv
+import com.ashir.fridge.ui.home.fragments.CategoryProductFragment
 import com.ashir.fridge.ui.home.fragments.SearchProductFragment
+import com.ashir.fridge.utils.IModel
+import com.ashir.fridge.utils.listeners.DelegateClickListener
 import com.threemusketeers.dliverCustomer.main.utils.extensions.isNull
 import com.threemusketeers.dliverCustomer.main.utils.extensions.setGone
 import com.threemusketeers.dliverCustomer.main.utils.extensions.setGoneMultiple
@@ -31,9 +36,21 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by viewModels<HomeViewModel>()
     private val mainActivityViewModel: MainActivityViewModel by activityViewModels<MainActivityViewModel>()
-    private val categoriesRvAdapter = HomeCategoriesRv()
-    private var categoriesData : MutableList<Categories>  = mutableListOf()
+    private var categoriesData : HomeProductCategories? = null
 
+    private val categoriesRvClickListener = object : DelegateClickListener {
+
+        override fun onClick(iModel: IModel?, position: Int, otherData: Any?) {
+            when(iModel) {
+                is HomeProductCategory -> {
+                    openChildFragment(CategoryProductFragment.newInstance(iModel), SearchProductFragment.TAG, true)
+
+                }
+            }
+        }
+    }
+
+    private val categoriesRvAdapter = HomeCategoriesRv(categoriesRvClickListener)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,6 +73,7 @@ class HomeFragment : Fragment() {
         // Setup UI
         binding.emptyString.text = getString(R.string.please_wait_fetching_all_your_items)
         binding.emptyString.setVisible()
+        binding.letsCookBtn.setGone()
         if(AccountManager.user == null) {
             mainActivityViewModel.getSelfUser()
         }else {
@@ -93,8 +111,7 @@ class HomeFragment : Fragment() {
                     if(it.data.isNull() ){
                         setupEmptyState()
                     }else {
-                        categoriesData = mutableListOf()
-                        (it.data as? List<Categories>)?.let { it1 -> categoriesData.addAll(it1) }
+                        categoriesData = it.data
                         setupCategoriesRv()
                     }
                 }
@@ -112,7 +129,7 @@ class HomeFragment : Fragment() {
         // Setup Categories RecyclerView
         binding.categoriesRv.setVisibleMultiple(binding.letsCookBtn)
         binding.categoriesRv.adapter = categoriesRvAdapter
-        categoriesRvAdapter.submitList(categoriesData)
+        categoriesRvAdapter.submitList(categoriesData?.categories.orEmpty())
         binding.emptyString.setGone()
     }
 
@@ -126,10 +143,16 @@ class HomeFragment : Fragment() {
     private fun setupClickListeners() {
         // Setup Click Listeners
         binding.floatingAddBtn.setOnClickListener {
-            childFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container_view, SearchProductFragment.newInstance("")).addToBackStack(SearchProductFragment.TAG)
-                .commit()
+            openChildFragment(SearchProductFragment.newInstance(""), SearchProductFragment.TAG, false)
         }
+    }
+
+    private fun openChildFragment(fragment: Fragment,tag : String, addtoBackstack : Boolean) {
+        val fragmentObj = childFragmentManager.beginTransaction().replace(R.id.fragment_container_view, fragment)
+        if(addtoBackstack) {
+            fragmentObj.addToBackStack(tag)
+        }
+        fragmentObj.commitAllowingStateLoss()
     }
 
     override fun onDestroyView() {
