@@ -8,6 +8,8 @@
         android:id="@+id/rr850vt1u3j"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="100dp"
+        android:clipToPadding="false"
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,9 +23,9 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="68dp"
                 android:text="Name"
-                android:textColor="@color/text_primary"
+                 android:textColor="@color/text_secondary"
+                android:fontFamily="@font/poppins_medium"
                 android:textSize="15sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,10 +40,10 @@
                 android:inputType="text"
                 android:paddingHorizontal="37dp"
                 android:paddingVertical="12dp"
-                android:textColor="@color/text_primary"
-                android:textColorHint="@color/text_tertiary"
+                android:textColor="@color/text_secondary"
+                android:textColorHint="@color/text_tertiary_50"
                 android:textSize="16sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/poppins_medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_full_name" />
@@ -53,9 +55,9 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="15dp"
                 android:text="Quantity"
-                android:textColor="@color/text_primary"
+                 android:textColor="@color/text_secondary"
+                android:fontFamily="@font/poppins_medium"
                 android:textSize="15sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_name" />
 
@@ -70,10 +72,10 @@
                 android:inputType="number"
                 android:paddingHorizontal="38dp"
                 android:paddingVertical="12dp"
-                android:textColor="@color/text_primary"
-                android:textColorHint="@color/text_tertiary"
+                android:textColor="@color/text_secondary"
+                android:textColorHint="@color/text_tertiary_50"
                 android:textSize="16sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/poppins_medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_quantity" />
@@ -85,9 +87,9 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="15dp"
                 android:text="Unit"
-                android:textColor="@color/text_primary"
+                 android:textColor="@color/text_secondary"
+                android:fontFamily="@font/poppins_medium"
                 android:textSize="15sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_qunatity" />
 
@@ -101,10 +103,10 @@
                 android:inputType="text"
                 android:paddingHorizontal="37dp"
                 android:paddingVertical="12dp"
-                android:textColor="@color/text_primary"
-                android:textColorHint="@color/text_tertiary"
+                android:textColor="@color/text_secondary"
+                android:textColorHint="@color/text_tertiary_50"
                 android:textSize="16sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/poppins_medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_unit" />
@@ -116,9 +118,9 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="15dp"
                 android:text="Brand"
-                android:textColor="@color/text_primary"
+                 android:textColor="@color/text_secondary"
+                android:fontFamily="@font/poppins_medium"
                 android:textSize="15sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/spinner_unit" />
 
@@ -133,10 +135,10 @@
                 android:inputType="text"
                 android:paddingHorizontal="38dp"
                 android:paddingVertical="12dp"
-                android:textColor="@color/text_primary"
-                android:textColorHint="@color/text_tertiary"
+                android:textColor="@color/text_secondary"
+                android:textColorHint="@color/text_tertiary_50"
                 android:textSize="16sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/poppins_medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_brand" />
@@ -148,9 +150,9 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="15dp"
                 android:text="Expiry Date"
-                android:textColor="@color/text_primary"
+                 android:textColor="@color/text_secondary"
+                android:fontFamily="@font/poppins_medium"
                 android:textSize="15sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_brand" />
 
@@ -164,10 +166,10 @@
                 android:hint="DD / MM /YYY"
                 android:paddingHorizontal="38dp"
                 android:paddingVertical="12dp"
-                android:textColor="@color/text_primary"
-                android:textColorHint="@color/text_tertiary"
+                android:textColor="@color/text_secondary"
+                android:textColorHint="@color/text_tertiary_50"
                 android:textSize="16sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/poppins_medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_expiry" />
@@ -197,9 +199,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Go with Standard Expiry"
-                android:textColor="@color/text_primary"
+                 android:textColor="@color/text_secondary"
+                android:fontFamily="@font/poppins_medium"
                 android:textSize="15sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/checkbox_standard_expiry"
                 app:layout_constraintTop_toTopOf="@id/checkbox_standard_expiry"
                 app:layout_constraintBottom_toBottomOf="@id/checkbox_standard_expiry" />
@@ -223,9 +225,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Done"
-                    android:textColor="#FFFCF8"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
+                    android:textColor="@color/bg"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/poppins_semibold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

@@ -176,7 +176,7 @@ class ProductFormFragment : Fragment() {
             Utils.showDatePickerDialog(requireContext(), binding.expiryEt)
         }
 
-        binding.checkboxStandardExpiry.debouncedClickListener(1000) {
+        binding.checkboxStandardExpiry.debouncedClickListener {
             if (binding.checkboxStandardExpiry.isChecked) {
                 // add 7 days to current date
                 val currentExpiry = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(product?.standardExpiryDays?.toLong()?:0L)

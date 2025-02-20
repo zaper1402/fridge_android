@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.ashir.fridge.R
 import com.ashir.fridge.databinding.FragmentNotificationsBinding
 import com.ashir.fridge.http.Result
 import com.ashir.fridge.ui.notifications.adapters.ExpiryNotifAdapter
 import com.ashir.fridge.ui.notifications.pojo.NotifData
 import com.ashir.fridge.utils.IModel
 import com.ashir.fridge.utils.listeners.DelegateClickListener
+import com.threemusketeers.dliverCustomer.main.utils.extensions.setGone
+import com.threemusketeers.dliverCustomer.main.utils.extensions.setVisible
 
 class NotificationsFragment : Fragment() {
 
@@ -61,16 +64,15 @@ class NotificationsFragment : Fragment() {
         notificationsViewModel.notifLiveData.observe(viewLifecycleOwner) { notifData ->
             when (notifData) {
                 is Result.Success -> {
-                    this.notifData = notifData.data
-                    notifData.data.let {
-                        adapter.submitList(it.notifItems)
-                    }
+                    setSuccessState(notifData.data)
                 }
                 is Result.Error<*> -> {
                     // Handle Error
+                    setErrorState()
                 }
                 is Result.InProgress -> {
                     // Handle In Progress
+                    setInProgressState()
                 }
             }
         }
@@ -80,6 +82,29 @@ class NotificationsFragment : Fragment() {
         // Setup Click Listeners
     }
 
+    private fun setSuccessState(data: NotifData) {
+        // Set Success State
+        this.notifData = data
+        data.let {
+            adapter.submitList(it.notifItems)
+        }
+        binding.emptyString.setGone()
+    }
+
+    private fun setErrorState() {
+        // Set Error State
+        binding.emptyString.text = getString(R.string.uh_oh_something_went_wrong_please_try_again_later)
+        binding.emptyString.setVisible()
+        binding.notifRv.setGone()
+    }
+
+
+    private fun setInProgressState() {
+        // Set In Progress State
+        binding.emptyString.text = getString(R.string.please_wait_fetching_all_your_items)
+        binding.emptyString.setVisible()
+        binding.notifRv.setGone()
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
