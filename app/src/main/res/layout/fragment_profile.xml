@@ -2,22 +2,195 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.ProfileFragment">
+    android:background="@color/bg"
+    android:clickable="true">
+
+    <!-- Profile Title -->
+    <TextView
+        android:id="@+id/tvProfileTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile"
+        android:textColor="@color/secondary"
+        android:textSize="20sp"
+        android:fontFamily="@font/poppins_semibold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvCompleteProfile"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <!-- Complete Profile Title -->
+    <TextView
+        android:id="@+id/tvCompleteProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Complete Your Profile"
+        android:textColor="@color/text_primary"
+        android:textSize="18sp"
+        android:fontFamily="@font/poppins_semibold"
+        app:layout_constraintTop_toBottomOf="@id/tvProfileTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp" />
+
+    <!-- Profile Icon -->
+    <ImageView
+        android:id="@+id/ivProfileIcon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/profile_img"
+        android:contentDescription="Profile Icon"
+        app:layout_constraintTop_toBottomOf="@id/tvCompleteProfile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp" />
 
     <TextView
-        android:id="@+id/text_profile"
+        android:id="@+id/text_full_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="28dp"
+        android:text="Name"
+        android:textColor="@color/text_secondary"
+        android:fontFamily="@font/poppins_medium"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivProfileIcon" />
+
+    <TextView
+        android:id="@+id/edit_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="35dp"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/form_field_background"
+        android:hint="Rice"
+        android:inputType="text"
+        android:paddingHorizontal="37dp"
+        android:paddingVertical="8dp"
+        android:textColor="@color/text_secondary"
+        android:textColorHint="@color/text_tertiary_50"
+        android:textSize="16sp"
+        android:fontFamily="@font/poppins_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/text_full_name" />
+
+    <TextView
+        android:id="@+id/text_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        android:text="Gender"
+        android:textColor="@color/text_secondary"
+        android:fontFamily="@font/poppins_medium"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_name" />
+
+    <TextView
+        android:id="@+id/edit_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="35dp"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/form_field_background"
+        android:hint="Not Specified"
+        android:inputType="number"
+        android:paddingHorizontal="38dp"
+        android:paddingVertical="8dp"
+        android:textColor="@color/text_secondary"
+        android:textColorHint="@color/text_tertiary_50"
+        android:textSize="16sp"
+        android:fontFamily="@font/poppins_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_gender" />
+
+    <TextView
+        android:id="@+id/text_mobile_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        android:text="Mobile Number"
+        android:textColor="@color/text_secondary"
+        android:fontFamily="@font/poppins_medium"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_gender" />
+
+    <TextView
+        android:id="@+id/edit_mobile_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="35dp"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/form_field_background"
+        android:inputType="text"
+        android:paddingHorizontal="37dp"
+        android:paddingVertical="8dp"
+        android:textColor="@color/text_secondary"
+        android:textColorHint="@color/text_tertiary_50"
+        android:textSize="16sp"
+        android:fontFamily="@font/poppins_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_mobile_number" />
+
+    <TextView
+        android:id="@+id/text_dob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        android:text="Date of Birth"
+        android:textColor="@color/text_secondary"
+        android:fontFamily="@font/poppins_medium"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_mobile_number" />
+
+    <TextView
+        android:id="@+id/edit_dob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="35dp"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/form_field_background"
+        android:hint="Optional"
+        android:inputType="text"
+        android:paddingHorizontal="38dp"
+        android:paddingVertical="8dp"
+        android:textColor="@color/text_secondary"
+        android:textColorHint="@color/text_tertiary_50"
+        android:textSize="16sp"
+        android:fontFamily="@font/poppins_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_dob" />
+
+
+    <!-- Continue Button -->
+    <TextView
+        android:id="@+id/btnContinue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="40dp"
+        android:paddingVertical="8dp"
+        android:text="Log out"
+        android:textColor="@color/bg"
+        android:textSize="20sp"
+        android:background="@drawable/primary_bg_30"
+        android:fontFamily="@font/poppins_semibold"
+        app:layout_constraintTop_toBottomOf="@id/edit_dob"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="30dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

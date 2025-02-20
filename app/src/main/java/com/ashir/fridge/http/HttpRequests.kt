@@ -49,4 +49,8 @@ object HttpRequests {
     fun getNotifData(callback: Callback) {
         return clientManager.get(HttpDomainManager.generateUrl(DomainType.BASE_DOMAIN,"/user/get-notifications?uid=${AccountManager.uid}"), callback)
     }
+
+    fun logoutUser(payload : JSONObject, callback: Callback) {
+        return clientManager.post(HttpDomainManager.generateUrl(DomainType.BASE_DOMAIN,"auth/logout"), payload.toString(), callback)
+    }
 }

@@ -16,9 +16,16 @@ object AccountManager {
 
 
     fun saveAccountInfo(data: User?) {
+        data ?: return
         SharedPrefUtil.getAuthInstance().saveString(SharedPrefConstants.UID, data?.id.toString())
-        uid = data?.id.toString()
+        uid = data.id.toString()
         user = data
+    }
+
+    fun resetAccountInfo() {
+        SharedPrefUtil.getAuthInstance().remove(SharedPrefConstants.UID)
+        uid = null
+        user = null
     }
 
 }
