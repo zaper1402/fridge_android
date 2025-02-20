@@ -35,7 +35,7 @@ class CategoryProductsAdapter(private val delegateClickListener: DelegateClickLi
         fun bind(product: ProductGroupedData) {
             binding.productName.text = product.productName
             binding.productQuantity.text =
-                binding.root.context.getString(R.string.quantity, product.totalQuantity.toString(), "Quantity may be sum of multiple products")
+                binding.root.context.getString(R.string.quantity, product.totalQuantity.toString(), "(Sum of multiple products)")
             binding.root.debouncedClickListener {
                 delegateClickListener.onClick(product, adapterPosition, null)
             }

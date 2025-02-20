@@ -26,10 +26,10 @@
                 android:layout_marginEnd="4dp"
                 android:layout_weight="1"
                 android:text="Ginger (Lidl)"
-                android:textColor="#FD5D69"
+                android:textColor="@color/secondary"
                 app:layout_constraintTop_toTopOf="parent"
                 android:textSize="24sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/poppins_bold"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
@@ -38,8 +38,9 @@
                 android:layout_height="36dp"
                 android:layout_marginEnd="4dp"
                 android:background="@drawable/circular_bg_white"
-                android:backgroundTint="@color/bg2"
+                android:backgroundTint="@color/button_secondary"
                 android:src="@drawable/ic_minus"
+                android:padding="4dp"
                 app:layout_constraintBottom_toBottomOf="@id/name"
                 app:layout_constraintEnd_toStartOf="@id/quantity"
                 app:layout_constraintTop_toTopOf="@id/name"
@@ -48,8 +49,9 @@
             <TextView
                 android:id="@+id/quantity"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginEnd="4dp"
+                android:gravity="center"
                 android:text="10"
                 android:textColor="@color/text_primary"
                 android:textSize="16sp"
@@ -66,6 +68,8 @@
                 android:background="@drawable/circular_bg_white"
                 android:backgroundTint="@color/primary"
                 android:src="@drawable/ic_plus"
+                android:padding="4dp"
+
                 app:layout_constraintBottom_toBottomOf="@id/name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/name"

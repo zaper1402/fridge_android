@@ -43,12 +43,11 @@
             android:textAlignment="center"
             android:textColor="@color/bg"
             android:textSize="16sp"
-            android:textStyle="bold"
+            android:fontFamily="@font/poppins_bold"
             app:layout_constraintEnd_toStartOf="@id/search_ic"
             app:layout_constraintStart_toEndOf="@id/back_ic"
             app:layout_constraintTop_toBottomOf="@id/back_ic"
             tools:text="Category: Vegetable" />
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/products_recycler"
@@ -84,9 +83,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Done"
-                android:textColor="#FFFCF8"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:textColor="@color/bg"
+                android:textSize="16sp"
+                android:fontFamily="@font/poppins_bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -96,6 +95,7 @@
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container_view"
             android:layout_width="match_parent"
+            tools:visibility="gone"
             android:layout_height="match_parent"/>
 
 

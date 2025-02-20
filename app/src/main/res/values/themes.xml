@@ -11,6 +11,7 @@
         <item name="colorOnSecondary">@color/bg</item>
         <!-- Status bar color. -->
         <item name="android:navigationBarColor">@color/primary</item>
+        <item name="android:includeFontPadding">false</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>

@@ -23,14 +23,29 @@
         android:id="@+id/header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/primary"
+        android:textColor="@color/secondary"
         android:textSize="20sp"
-        android:textStyle="bold"
+        android:fontFamily="@font/poppins_bold"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Expiry Notifications" />
+
+    <TextView
+        android:id="@+id/emptyString"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/bg2"
+        android:textSize="18sp"
+        android:fontFamily="@font/poppins_semibold"
+        android:layout_marginTop="94dp"
+        android:textAlignment="center"
+        android:layout_marginHorizontal="30dp"
+        android:text="@string/the_fridge_is_empty_now_nplease_add_ingredients"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notif_rv"
