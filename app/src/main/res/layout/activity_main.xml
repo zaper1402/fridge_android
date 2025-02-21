@@ -4,7 +4,6 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:background="@color/primary"
-    android:fitsSystemWindows="true"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
