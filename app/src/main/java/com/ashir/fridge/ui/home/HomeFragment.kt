@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import com.ashir.fridge.MainActivity
 import com.ashir.fridge.R
 import com.ashir.fridge.account.AccountManager
+import com.ashir.fridge.account.pojo.Cuisines
 import com.ashir.fridge.account.pojo.HomeProductCategories
 import com.ashir.fridge.account.pojo.HomeProductCategory
 import com.ashir.fridge.databinding.FragmentHomeBinding
@@ -17,6 +18,7 @@ import com.ashir.fridge.http.Result
 import com.ashir.fridge.ui.MainActivityViewModel
 import com.ashir.fridge.ui.home.adapters.HomeCategoriesRv
 import com.ashir.fridge.ui.home.fragments.CategoryProductFragment
+import com.ashir.fridge.ui.home.fragments.CuisinesFragment
 import com.ashir.fridge.ui.home.fragments.SearchProductFragment
 import com.ashir.fridge.utils.IModel
 import com.ashir.fridge.utils.listeners.DelegateClickListener
@@ -144,6 +146,11 @@ class HomeFragment : Fragment() {
         // Setup Click Listeners
         binding.floatingAddBtn.setOnClickListener {
             openChildFragment(SearchProductFragment.newInstance(""), SearchProductFragment.TAG, true)
+        }
+
+        binding.letsCookBtn.setOnClickListener {
+            val cuisines = categoriesData?.cusines?.let { it1 -> Cuisines(it1) }
+            openChildFragment(CuisinesFragment.newInstance(cuisines), SearchProductFragment.TAG, true)
         }
     }
 

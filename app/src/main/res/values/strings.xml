@@ -9,4 +9,5 @@
     <string name="please_wait_fetching_all_your_items">Please wait fetching all your items...</string>
     <string name="quantity">Quantity: %1$s %2$s</string>
     <string name="product">Product : %1$s</string>
+    <string name="pick_cuisine_type">Pick Cuisine Type</string>
 </resources>
