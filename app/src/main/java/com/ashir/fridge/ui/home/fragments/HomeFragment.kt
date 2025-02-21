@@ -1,4 +1,4 @@
-package com.ashir.fridge.ui.home
+package com.ashir.fridge.ui.home.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,10 +16,8 @@ import com.ashir.fridge.account.pojo.HomeProductCategory
 import com.ashir.fridge.databinding.FragmentHomeBinding
 import com.ashir.fridge.http.Result
 import com.ashir.fridge.ui.MainActivityViewModel
+import com.ashir.fridge.ui.home.HomeViewModel
 import com.ashir.fridge.ui.home.adapters.HomeCategoriesRv
-import com.ashir.fridge.ui.home.fragments.CategoryProductFragment
-import com.ashir.fridge.ui.home.fragments.CuisinesFragment
-import com.ashir.fridge.ui.home.fragments.SearchProductFragment
 import com.ashir.fridge.utils.IModel
 import com.ashir.fridge.utils.listeners.DelegateClickListener
 import com.threemusketeers.dliverCustomer.main.utils.extensions.isNull
@@ -97,11 +95,11 @@ class HomeFragment : Fragment() {
                     if(resp?.code == 404){
                         (activity as? MainActivity)?.setupPreLogin()
                     }else {
-                        // todo
+                        setErrorState()
                     }
                 }
                 is Result.InProgress -> {
-
+                    setLoadingState()
                 }
             }
         }
@@ -139,6 +137,20 @@ class HomeFragment : Fragment() {
         // Setup Empty State
         binding.categoriesRv.setGoneMultiple(binding.letsCookBtn)
         binding.emptyString.text = getString(R.string.the_fridge_is_empty_now_nplease_add_ingredients)
+        binding.emptyString.setVisible()
+    }
+
+    private fun setLoadingState() {
+        // Set Loading State
+        binding.categoriesRv.setGoneMultiple(binding.letsCookBtn)
+        binding.emptyString.text = getString(R.string.please_wait_fetching_all_your_items)
+        binding.emptyString.setVisible()
+    }
+
+    private fun setErrorState() {
+        // Set Error State
+        binding.categoriesRv.setGoneMultiple(binding.letsCookBtn)
+        binding.emptyString.text = getString(R.string.uh_oh_something_went_wrong_please_try_again_later)
         binding.emptyString.setVisible()
     }
 

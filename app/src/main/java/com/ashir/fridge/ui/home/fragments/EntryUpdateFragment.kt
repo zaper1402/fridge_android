@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.ashir.fridge.account.pojo.QuantityType
 import com.ashir.fridge.databinding.EntryUpdateFormLayoutBinding
 import com.ashir.fridge.ui.home.pojo.UserProduct
+import com.threemusketeers.dliverCustomer.main.utils.extensions.toPrintableString
 
 class EntryUpdateFragment : Fragment() {
     private var _binding: EntryUpdateFormLayoutBinding? = null
@@ -58,7 +59,7 @@ class EntryUpdateFragment : Fragment() {
 
     private fun setupUi() {
         // setup ui here
-        binding.editQunatity.setText(userProduct?.quantity.toString())
+        binding.editQunatity.setText(userProduct?.quantity.toPrintableString(truncateDecimalDigits = true))
         binding.spinnerUnit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 QuantityType.entries.firstOrNull { it.value == items[position]}?.let{

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,9 +13,10 @@
             android:layout_marginTop="27dp"
             android:text="Full name"
             android:visibility="gone"
-            android:textColor="@color/text_primary"
+            android:textColor="@color/text_secondary"
             android:textSize="15sp"
-            android:textStyle="bold"
+            android:fontFamily="@font/poppins_semibold"
+            tools:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,17 +47,21 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1:1"
                 android:src="@drawable/ic_notification_white"
+                android:tintMode="src_atop"
                 android:padding="4dp"
                 app:tint="@color/primary" />
 
             <TextView
                 android:id="@+id/title"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 android:textSize="16sp"
-                android:textColor="@color/text_primary"
-                android:textStyle="bold"
+                app:layout_constrainedWidth="true"
+                android:textColor="@color/primary"
+                tools:text="Item expired today"
+                android:fontFamily="@font/poppins_medium"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/alert_ic"
                 android:layout_marginStart="10dp"/>

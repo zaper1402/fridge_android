@@ -37,8 +37,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.ashir.fridge.FridgeApplication
 import com.ashir.fridge.utils.DebouncedOnClickListener
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ashir.fridge.utils.Utils
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.threemusketeers.dliverCustomer.main.utils.ViewUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -235,6 +235,26 @@ fun Long?.isGreaterThanOrEqual(other: Long?): Boolean =
 
 fun Long?.isEqual(other: Long?): Boolean =
     if (this != null && other != null) this == other else false
+
+
+fun Float?.toPrintableString(
+    isAppendRupeeSymbol: Boolean = false,
+    truncateDecimalDigits: Boolean = false,
+    numFractionDigits: Int = 2
+): String {
+    val result = if (isAppendRupeeSymbol) "₹" else ""
+    this ?: return if (isAppendRupeeSymbol) result + "0" else ""
+
+    if (this % 1.0 == 0.0) { // if double is a whole number
+        return result + this.toInt().toString()
+    }
+
+    if (isAppendRupeeSymbol || truncateDecimalDigits) {
+        return result + BigDecimal(this.toString()).truncateBigDecimal(numFractionDigits).toPlainString()
+//         cut decimals to numFractionDigits or default = 2 if its more than 2 like 3.567 will be 3.56
+    }
+    return result + this.toString()
+}
 
 fun Double?.toPrintableString(
     isAppendRupeeSymbol: Boolean = false,

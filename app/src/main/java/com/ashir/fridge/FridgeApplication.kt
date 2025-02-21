@@ -29,7 +29,7 @@ class FridgeApplication : Application() {
         HttpDomainManager.toggleProductionOrStagingConfiguration(
             isProduction = false,
             isDocker = false,
-            isLocalhost = true
+            isLocalhost = false
         )
         setFirebaseTokenIfExist()
     }

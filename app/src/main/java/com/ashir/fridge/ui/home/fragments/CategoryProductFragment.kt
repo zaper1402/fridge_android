@@ -17,6 +17,8 @@ import com.ashir.fridge.ui.home.pojo.UserProductData
 import com.ashir.fridge.utils.IModel
 import com.ashir.fridge.utils.listeners.DelegateClickListener
 import com.threemusketeers.dliverCustomer.main.utils.ViewUtils
+import com.threemusketeers.dliverCustomer.main.utils.extensions.setGone
+import com.threemusketeers.dliverCustomer.main.utils.extensions.setVisible
 
 class CategoryProductFragment : Fragment() {
 
@@ -92,16 +94,17 @@ class CategoryProductFragment : Fragment() {
         homeViewModel.categoryProductLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.InProgress -> {
-                    // show progress
+                    setLoadingState()
                 }
                 is Result.Success -> {
                     // hide progress
-                    productData = it.data
-                    processProductDataForRv(it.data)
+
+                    setSuccessState(it.data)
                 }
                 is Result.Error<*> -> {
                     // hide progress
                     // show error
+                    setErrorState()
                     ViewUtils.showGenericErrorToast(requireContext())
                 }
             }
@@ -136,6 +139,28 @@ class CategoryProductFragment : Fragment() {
         binding.searchIc.setOnClickListener {
             // open search fragment
         }
+    }
+
+    private fun setSuccessState(data: UserProductData) {
+        // Set Success State
+        binding.categoryProductsRv.setVisible()
+        binding.emptyString.setGone()
+        productData = data
+        processProductDataForRv(data)
+    }
+
+    private fun setLoadingState() {
+        // Set Loading State
+        binding.categoryProductsRv.setGone()
+        binding.emptyString.text = getString(R.string.please_wait_fetching_all_your_items)
+        binding.emptyString.setVisible()
+    }
+
+    private fun setErrorState() {
+        // Set Error State
+        binding.categoryProductsRv.setGone()
+        binding.emptyString.text = getString(R.string.uh_oh_something_went_wrong_please_try_again_later)
+        binding.emptyString.setVisible()
     }
 
     private fun openChildFragment(fragment: Fragment,tag : String, addtoBackstack : Boolean) {

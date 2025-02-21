@@ -20,7 +20,7 @@ object HttpDomainManager {
     const val DOMAIN_OVERRIDE_LOCALHOST = "DOMAIN_OVERRIDE_LOCALHOST"
 
     private var PRODUCTION_DOMAIN = "api.dliver.com"
-    private var STAGING_DOMAIN = "ec2-3-85-124-152.compute-1.amazonaws.com:8000"
+    private var STAGING_DOMAIN = "3.89.18.62:8000"
     private var LOCALHOST_DOMAIN = "localhost:8000"
     private var EMULATOR_DOMAIN = "10.0.2.2:8000"
     private var DOCKER_API = SharedPrefUtil.getDefaultInstance().getString(SharedPrefConstants.DOCKER_IP_ADDRESS, defaultValue = "")
