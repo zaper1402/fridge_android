@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import com.ashir.fridge.MainActivity
 import com.ashir.fridge.R
 import com.ashir.fridge.account.AccountManager
+import com.ashir.fridge.account.pojo.Cuisines
 import com.ashir.fridge.account.pojo.HomeProductCategories
 import com.ashir.fridge.account.pojo.HomeProductCategory
 import com.ashir.fridge.databinding.FragmentHomeBinding
@@ -157,6 +158,11 @@ class HomeFragment : Fragment() {
         // Setup Click Listeners
         binding.floatingAddBtn.setOnClickListener {
             openChildFragment(SearchProductFragment.newInstance(""), SearchProductFragment.TAG, true)
+        }
+
+        binding.letsCookBtn.setOnClickListener {
+            val cuisines = categoriesData?.cusines?.let { it1 -> Cuisines(it1) }
+            openChildFragment(CuisinesFragment.newInstance(cuisines), SearchProductFragment.TAG, true)
         }
     }
 
