@@ -3,6 +3,7 @@ package com.ashir.fridge.ui.home.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.ashir.fridge.R
 import com.ashir.fridge.account.pojo.CuisineType
 import com.ashir.fridge.databinding.CuisineItemBinding
 import com.ashir.fridge.ui.home.HomeUtils
@@ -32,6 +33,9 @@ class CuisinesAdapter(private val cuisineList: List<CuisineType>?, private val d
             val cuisineRes = HomeUtils.cuisineToImageMap[cuisineName]
             if (cuisineRes != null) {
                 binding.cuisineIv.setImageResource(cuisineRes)
+            }else{
+                //fallback
+                binding.cuisineIv.setImageResource(R.drawable.indian)
             }
 
             binding.root.debouncedClickListener {

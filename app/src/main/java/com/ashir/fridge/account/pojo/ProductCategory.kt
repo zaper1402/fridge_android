@@ -34,8 +34,8 @@ import java.io.Serializable
 
 
 data class  HomeProductCategories(
-    val categories: List<HomeProductCategory>,
-    @SerializedName("cusines") val cusines: List<CuisineType>? = null
+    @SerializedName("categories") val categories: List<HomeProductCategory>,
+    @SerializedName("cuisines_categories") val cuisines: List<CuisineType>? = null
 ) : IModel
 
 data class HomeProductCategory(
@@ -43,6 +43,7 @@ data class HomeProductCategory(
 ) : IModel, Serializable
 
 data class CuisineType(
+    @SerializedName("id") val cuisineId: String,
     @SerializedName("name") val cuisineName: String
 ) : IModel, Serializable
 

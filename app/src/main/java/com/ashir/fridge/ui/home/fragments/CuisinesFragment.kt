@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.ashir.fridge.R
 import com.ashir.fridge.account.pojo.CuisineType
 import com.ashir.fridge.account.pojo.Cuisines
 import com.ashir.fridge.databinding.FragmentCuisineBinding
@@ -61,6 +62,9 @@ class CuisinesFragment: Fragment() {
         val firstCuisineRes = HomeUtils.cuisineToImageMap[firstCuisineName]
         if (firstCuisineRes != null) {
             mBinding?.firstCuisineIv?.setImageResource(firstCuisineRes)
+        }else{
+            //fallback
+            mBinding?.firstCuisineIv?.setImageResource(R.drawable.indian)
         }
 
         val cuisineRvList = cuisineList?.subList(1, cuisineList.size)

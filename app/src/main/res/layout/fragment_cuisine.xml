@@ -40,6 +40,7 @@
             android:id="@+id/cuisines_sv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:nestedScrollingEnabled="false"
             app:layout_constraintTop_toBottomOf="@id/back_ic"
             app:layout_constraintBottom_toBottomOf="parent">
 
@@ -67,6 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
+                    app:shapeAppearanceOverlay="@style/roundedImage12dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/first_cuisine_tv"
@@ -79,6 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="37dp"
                     tools:listitem="@layout/cuisine_item"
                     app:layout_constraintTop_toBottomOf="@id/first_cuisine_iv"
                     app:layout_constraintBottom_toBottomOf="parent"

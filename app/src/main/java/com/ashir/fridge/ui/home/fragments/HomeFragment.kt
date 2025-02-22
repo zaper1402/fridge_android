@@ -1,9 +1,11 @@
 package com.ashir.fridge.ui.home.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -116,7 +118,7 @@ class HomeFragment : Fragment() {
                     }
                 }
                 is Result.Error<*> -> {
-                    // todo
+                    setErrorState()
                 }
                 is Result.InProgress -> {
 
@@ -161,7 +163,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.letsCookBtn.setOnClickListener {
-            val cuisines = categoriesData?.cusines?.let { it1 -> Cuisines(it1) }
+            val cuisines = categoriesData?.cuisines?.let { it1 -> Cuisines(it1) }
             openChildFragment(CuisinesFragment.newInstance(cuisines), SearchProductFragment.TAG, true)
         }
     }

@@ -11,6 +11,7 @@
             android:id="@+id/cuisine_iv"
             android:layout_width="158.5dp"
             android:layout_height="144.5dp"
+            android:adjustViewBounds="true"
             app:shapeAppearanceOverlay="@style/roundedImage12dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
