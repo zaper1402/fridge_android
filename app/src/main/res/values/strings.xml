@@ -12,4 +12,8 @@
     <string name="by_continuing_you_agree_to_n_b_terms_of_use_b_and_privacy_policy">By continuing, you agree to \n <b>Terms of Use</b> and <b>Privacy Policy</b>.</string>
     <string name="uh_oh_something_went_wrong_please_try_again_later">Uh oh! Something went wrong. Please try again later.</string>
     <string name="pick_cuisine_type">Pick Cuisine Type</string>
+    <string name="x_min">%1$s min</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="lunch">Lunch</string>
+    <string name="dinner">Dinner</string>
 </resources>
