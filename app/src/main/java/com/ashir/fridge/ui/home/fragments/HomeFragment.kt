@@ -1,15 +1,18 @@
 package com.ashir.fridge.ui.home.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.ashir.fridge.MainActivity
 import com.ashir.fridge.R
 import com.ashir.fridge.account.AccountManager
+import com.ashir.fridge.account.pojo.Cuisines
 import com.ashir.fridge.account.pojo.HomeProductCategories
 import com.ashir.fridge.account.pojo.HomeProductCategory
 import com.ashir.fridge.databinding.FragmentHomeBinding
@@ -115,7 +118,7 @@ class HomeFragment : Fragment() {
                     }
                 }
                 is Result.Error<*> -> {
-                    // todo
+                    setErrorState()
                 }
                 is Result.InProgress -> {
 
@@ -157,6 +160,11 @@ class HomeFragment : Fragment() {
         // Setup Click Listeners
         binding.floatingAddBtn.setOnClickListener {
             openChildFragment(SearchProductFragment.newInstance(""), SearchProductFragment.TAG, true)
+        }
+
+        binding.letsCookBtn.setOnClickListener {
+            val cuisines = categoriesData?.cuisines?.let { it1 -> Cuisines(it1) }
+            openChildFragment(CuisinesFragment.newInstance(cuisines), SearchProductFragment.TAG, true)
         }
     }
 

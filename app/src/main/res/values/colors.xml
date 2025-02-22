@@ -22,6 +22,7 @@
     <color name="text_secondary">#32201C</color>
     <color name="text_tertiary">#3E2823</color>
     <color name="text_tertiary_50">#803E2823</color>
+    <color name="red_text">#EC888D</color>
 
 <!--    button-->
     <color name="button_primary">#14AE5C</color>

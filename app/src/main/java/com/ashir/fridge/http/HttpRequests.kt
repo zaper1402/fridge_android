@@ -53,4 +53,9 @@ object HttpRequests {
     fun logoutUser(payload : JSONObject, callback: Callback) {
         return clientManager.post(HttpDomainManager.generateUrl(DomainType.BASE_DOMAIN,"auth/logout"), payload.toString(), callback)
     }
+
+    fun getRecipesByCuisine(cuisineId: String?, callback: Callback){
+        val userId = AccountManager.uid
+        return clientManager.get(HttpDomainManager.generateUrl(DomainType.BASE_DOMAIN,"/recipes/get-recipes?uid=${userId}&cuisine=${cuisineId}"), callback)
+    }
 }

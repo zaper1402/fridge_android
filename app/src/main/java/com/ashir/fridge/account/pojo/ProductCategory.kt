@@ -34,12 +34,20 @@ import java.io.Serializable
 
 
 data class  HomeProductCategories(
-    val categories: List<HomeProductCategory>
+    @SerializedName("categories") val categories: List<HomeProductCategory>,
+    @SerializedName("cuisines_categories") val cuisines: List<CuisineType>? = null
 ) : IModel
 
 data class HomeProductCategory(
     @SerializedName("product_category") val productCategory: String
 ) : IModel, Serializable
+
+data class CuisineType(
+    @SerializedName("id") val cuisineId: String,
+    @SerializedName("name") val cuisineName: String
+) : IModel, Serializable
+
+data class Cuisines(val cuisinesList: List<CuisineType>): Serializable
 
 enum class Categories(val value: String) {
     FRUITS("Fruits"),
