@@ -18,6 +18,8 @@ import com.ashir.fridge.ui.recipe.adapters.RecipesViewPagerAdapter
 import com.ashir.fridge.ui.recipe.pojo.Recipes
 import com.ashir.fridge.utils.IModel
 import com.ashir.fridge.utils.listeners.DelegateClickListener
+import com.ashir.fridge.utils.managers.FragmentController
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.threemusketeers.dliverCustomer.main.utils.extensions.debouncedClickListener
 import com.threemusketeers.dliverCustomer.main.utils.extensions.isNull
@@ -72,20 +74,39 @@ class RecipesFragment: Fragment() {
     private fun setUpUi(){
         val adapter = activity?.let { RecipesViewPagerAdapter(it, mData, recipeClickListener) }
         mBinding?.viewPager?.adapter = adapter
-
+        mBinding?.header?.text = getString(R.string.breakfast)
         mBinding?.tabLayout?.let { tabLayout ->
             mBinding?.viewPager?.let { viewPager ->
                 TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                    tab.text = when (position) {
-                        0 -> getString(R.string.breakfast)
-                        1 -> getString(R.string.lunch)
-                        2 -> getString(R.string.dinner)
-                        else -> getString(R.string.breakfast)
-                    }
+                    tab.text = getTabNameForPosition(position)
                 }.attach()
             }
         }
+
+        mBinding?.tabLayout?.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                mBinding?.header?.text = tab?.position?.let { getTabNameForPosition(it) }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+
+        })
         showSuccessView()
+    }
+
+    private fun getTabNameForPosition(position: Int): String{
+        return when (position) {
+            0 -> getString(R.string.breakfast)
+            1 -> getString(R.string.lunch)
+            2 -> getString(R.string.dinner)
+            else -> getString(R.string.breakfast)
+        }
     }
 
     private fun setUpObservers(){
@@ -137,11 +158,11 @@ class RecipesFragment: Fragment() {
 
     private fun setClickListeners(){
         mBinding?.backIc?.debouncedClickListener{
-
+            FragmentController.removeCurrentOverlayFragment(activity, this)
         }
 
         mBinding?.homeIc?.debouncedClickListener{
-
+            FragmentController.removeAllOverlayFragments(activity)
         }
     }
 

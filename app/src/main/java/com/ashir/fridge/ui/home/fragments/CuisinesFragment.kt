@@ -13,8 +13,11 @@ import com.ashir.fridge.account.pojo.Cuisines
 import com.ashir.fridge.databinding.FragmentCuisineBinding
 import com.ashir.fridge.ui.home.HomeUtils
 import com.ashir.fridge.ui.home.adapters.CuisinesAdapter
+import com.ashir.fridge.ui.recipe.fragments.RecipesFragment
 import com.ashir.fridge.utils.IModel
 import com.ashir.fridge.utils.listeners.DelegateClickListener
+import com.ashir.fridge.utils.managers.FragmentController
+import com.threemusketeers.dliverCustomer.main.utils.extensions.debouncedClickListener
 import com.threemusketeers.dliverCustomer.main.utils.extensions.getSafe
 
 class CuisinesFragment: Fragment() {
@@ -42,17 +45,22 @@ class CuisinesFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         cuisines = arguments?.getSerializable(CUISINES) as? Cuisines
         setUpUi()
+        setClickListeners()
     }
 
     private val cuisineClickListener = object : DelegateClickListener {
         override fun onClick(iModel: IModel?, position: Int, otherData: Any?) {
             when (iModel) {
                 is CuisineType -> {
-                    val cuisineName = iModel.cuisineName
-                    Toast.makeText(context, cuisineName, Toast.LENGTH_SHORT).show()
+                    val cuisineId = iModel.cuisineId
+                    openRecipesFragment(cuisineId)
                 }
             }
         }
+    }
+
+    private fun openRecipesFragment(cuisineId: String?){
+        openChildFragment(RecipesFragment.newInstance(cuisineId), RecipesFragment.TAG, true)
     }
 
     private fun setUpUi(){
@@ -72,6 +80,25 @@ class CuisinesFragment: Fragment() {
         mBinding?.cuisinesRv?.layoutManager = gridLayoutManager
         val adapter = CuisinesAdapter(cuisineRvList, cuisineClickListener)
         mBinding?.cuisinesRv?.adapter = adapter
+    }
+
+    private fun setClickListeners(){
+        mBinding?.firstCuisineIv?.debouncedClickListener{
+            val cuisineId = cuisines?.cuisinesList?.getSafe(0)?.cuisineId
+            openRecipesFragment(cuisineId)
+        }
+
+        mBinding?.backIc?.debouncedClickListener{
+            FragmentController.removeCurrentOverlayFragment(activity, this)
+        }
+    }
+
+    private fun openChildFragment(fragment: Fragment,tag : String, addtoBackstack : Boolean) {
+        val fragmentObj = childFragmentManager.beginTransaction().replace(R.id.fragment_container_cuisine, fragment)
+        if(addtoBackstack) {
+            fragmentObj.addToBackStack(tag)
+        }
+        fragmentObj.commitAllowingStateLoss()
     }
 
     override fun onDestroyView() {

@@ -164,7 +164,7 @@ class HomeFragment : Fragment() {
 
         binding.letsCookBtn.setOnClickListener {
             val cuisines = categoriesData?.cuisines?.let { it1 -> Cuisines(it1) }
-            openChildFragment(CuisinesFragment.newInstance(cuisines), SearchProductFragment.TAG, true)
+            openChildFragment(CuisinesFragment.newInstance(cuisines), CuisinesFragment.TAG, true)
         }
     }
 
