@@ -16,4 +16,11 @@
     <string name="breakfast">Breakfast</string>
     <string name="lunch">Lunch</string>
     <string name="dinner">Dinner</string>
+    <string name="recipe">Recipe</string>
+    <string name="lets_go">Let’s Go</string>
+    <string name="details">Details</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="instructions">Instructions</string>
+    <string name="serves">Serves</string>
+    <string name="difficulty">Difficulty</string>
 </resources>

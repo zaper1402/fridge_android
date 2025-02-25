@@ -16,6 +16,7 @@ import com.ashir.fridge.ui.home.HomeViewModel
 import com.ashir.fridge.ui.recipe.RecipeViewModel
 import com.ashir.fridge.ui.recipe.adapters.RecipesViewPagerAdapter
 import com.ashir.fridge.ui.recipe.pojo.Recipes
+import com.ashir.fridge.ui.recipe.pojo.RecipesData
 import com.ashir.fridge.utils.IModel
 import com.ashir.fridge.utils.listeners.DelegateClickListener
 import com.ashir.fridge.utils.managers.FragmentController
@@ -62,13 +63,26 @@ class RecipesFragment: Fragment() {
 
     private val recipeClickListener = object : DelegateClickListener {
         override fun onClick(iModel: IModel?, position: Int, otherData: Any?) {
-            when (iModel) {
-                is CuisineType -> {
-                    val cuisineName = iModel.cuisineName
-                    Toast.makeText(context, cuisineName, Toast.LENGTH_SHORT).show()
+            val action = otherData as? String
+            when (action) {
+                "recipe" -> {
+                    val fragment = RecipeDetailsFragment.newInstance(iModel as RecipesData)
+                    openChildFragment(fragment, RecipeDetailsFragment.TAG, true)
+                }
+
+                "favourite" -> {
+
                 }
             }
         }
+    }
+
+    private fun openChildFragment(fragment: Fragment,tag : String, addtoBackstack : Boolean) {
+        val fragmentObj = childFragmentManager.beginTransaction().replace(R.id.fragment_container_view, fragment)
+        if(addtoBackstack) {
+            fragmentObj.addToBackStack(tag)
+        }
+        fragmentObj.commitAllowingStateLoss()
     }
 
     private fun setUpUi(){

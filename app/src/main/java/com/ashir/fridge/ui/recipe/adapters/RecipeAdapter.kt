@@ -40,11 +40,11 @@ class RecipeAdapter(private val recipeList: List<RecipesData>?, private val dele
             }
 
             binding.root.setOnClickListener {
-                delegateClickListener?.onClick(recipe, adapterPosition, null)
+                delegateClickListener?.onClick(recipeData, adapterPosition, "recipe")
             }
 
             binding.favouriteIv.setOnClickListener {
-                delegateClickListener?.onClick(recipe, adapterPosition, null)
+                delegateClickListener?.onClick(recipeData, adapterPosition, "favourite")
             }
         }
     }
